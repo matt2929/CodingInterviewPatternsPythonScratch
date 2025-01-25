@@ -7,15 +7,11 @@ class SingleLinkedListReversal:
 
         if not ll.next:
             return ll
-
-        pntr_1=ll
-        pntr_2=ll.next
-        pntr_3=ll.next.next
-        pntr_1.next = None
-        while(pntr_3):
+        pntr_1=None
+        pntr_2=ll
+        while(pntr_2):
+            pntr_3 = pntr_2.next
             pntr_2.next = pntr_1
             pntr_1=pntr_2
             pntr_2=pntr_3
-            pntr_3=pntr_3.next
-        pntr_2.next = pntr_1
-        return pntr_2
+        return pntr_1
