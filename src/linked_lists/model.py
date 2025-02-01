@@ -20,7 +20,8 @@ class SingleLinkedListNode:
 
 class DoubleLinkedListNode:
 
-    def __init__(self, val: int, next: Optional['DoubleLinkedListNode'], previous: Optional['DoubleLinkedListNode']):
+    def __init__(self,key: int, val: int,  previous: Optional['DoubleLinkedListNode'], next: Optional['DoubleLinkedListNode'],):
+        self.key = key
         self.val = val
         self.next = next
         self.previous = previous
