@@ -3,7 +3,7 @@ from typing import Optional
 
 class SingleLinkedListNode:
 
-    def __init__(self, val: int, next: Optional['SingleLinkedListNode']):
+    def __init__(self, val: int, next: Optional['SingleLinkedListNode']=None):
         self.val = val
         self.next = next
 
