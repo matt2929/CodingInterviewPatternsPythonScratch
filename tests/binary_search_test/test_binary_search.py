@@ -21,10 +21,9 @@ class BinarySearchTest(unittest.TestCase):
         self.assertEqual(bs.binary_search(input_list, target), expected)
         self.assertEqual(bs.binary_search_recur(input_list, target), expected)
 
-
     @parameterized.expand([
         ([1, 2, 4, 5, 7, 8, 9], 4, 2),
-        ([1, 2, 4, 5 ,7, 8, 9], 6, 4)
+        ([1, 2, 4, 5, 7, 8, 9], 6, 4)
     ])
     def test_binary_search(self, input_list, target, expected):
         bs = BinarySearch()
@@ -32,8 +31,15 @@ class BinarySearchTest(unittest.TestCase):
         self.assertEqual(bs.find_insertion_index(input_list, target), expected)
 
     @parameterized.expand([
-        ([2,6,3,8], 7, 3),
+        ([2, 6, 3, 8], 7, 3),
     ])
     def test_cutting_wood(self, input_list, target, expected):
         bs = BinarySearch()
         self.assertEqual(bs.cutting_wood(input_list, target), expected)
+
+    @parameterized.expand([
+        ([8, 9, 1, 2, 3, 4, 5, 6, 7], 1, 2)
+    ])
+    def test_rotate_point(self, input_list, k, expected):
+        bs = BinarySearch()
+        self.assertEqual(bs.find_rotation_point(input_list, k), expected)

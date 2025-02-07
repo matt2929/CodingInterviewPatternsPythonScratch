@@ -72,3 +72,28 @@ class BinarySearch:
             return self.__cutting_wood_recur_helper__(input, search, left, self.__middle_index__(left, right) - 1)
         else:
             return self.__cutting_wood_recur_helper__(input, search, self.__middle_index__(left, right) + 1, right)
+
+    def find_rotation_point(self, input_arr: List[int], k: int):
+        return self.__find_rotation_point_recur_helper__(k, input_arr, 0, len(input_arr) - 1)
+
+    def __find_rotation_point_recur_helper__(self, target: int, input_arr: List[int], left_pntr: int,
+                                             right_pntr: int) -> int:
+        mid_val = input_arr[self.__middle_index__(left_pntr, right_pntr)]
+        print(f"\nleft {left_pntr} right {right_pntr} val: {mid_val}")
+        if target == mid_val:
+            return self.__middle_index__(left_pntr, right_pntr)
+        elif input_arr[left_pntr] < mid_val:
+            if input_arr[left_pntr] <= target <= mid_val:
+                return self.__find_rotation_point_recur_helper__(target, input_arr, left_pntr,
+                                                          self.__middle_index__(left_pntr, right_pntr) - 1)
+            else:
+                return self.__find_rotation_point_recur_helper__(target, input_arr,
+                                                          self.__middle_index__(left_pntr, right_pntr) + 1, right_pntr)
+        else:
+            if mid_val <= target <= input_arr[right_pntr]:
+
+                return self.__find_rotation_point_recur_helper__(target, input_arr,
+                                                          self.__middle_index__(left_pntr, right_pntr) + 1, right_pntr)
+            else:
+                return self.__find_rotation_point_recur_helper__(target, input_arr , left_pntr,
+                                                          self.__middle_index__(left_pntr, right_pntr) - 1)
