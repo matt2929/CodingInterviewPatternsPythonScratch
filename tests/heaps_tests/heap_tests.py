@@ -1,3 +1,4 @@
+import copy
 import unittest
 
 from parameterized import parameterized
@@ -28,8 +29,12 @@ class HeapStuffTests(unittest.TestCase):
         output_head = ss.combine_linked_lists(input_test)
         assert output_head.linked_list_as_array_str() == "[1, 1, 3, 4, 6, 6, 7]"
 
+    count_to_8 = [0, 1, 2, 2, 3, 4, 5, 7, 8]
+    count_to_8_reverse = [i for i in count_to_8]
+    count_to_8_reverse.reverse()
     @parameterized.expand([
-        ([0, 1, 2, 2, 3, 4, 5, 7, 8], 3),
+        (count_to_8, 3),
+        (count_to_8_reverse, 3),
         ([0, 1, 2], 1),
         ([4, 3, 1, 10], 3.5),
     ])

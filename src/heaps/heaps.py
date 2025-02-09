@@ -47,18 +47,18 @@ class Heap:
         for i in input_list:
             print(
                 f"\n\t1:{left_heap} {left_heap[0] if left_heap else None}\n\t2:{right_heap} {right_heap[0] if right_heap else None}")
-            if not left_heap or i <= left_heap[0]:
+            if not left_heap or i <= - left_heap[0]:
                 heapq.heappush(left_heap, -1 * i)
             else:
                 heapq.heappush(right_heap, i)
-            if len(left_heap) > len(right_heap) + 1:
-                heapq.heappush(right_heap, -1 * heapq.heappop(left_heap))
+            if len(left_heap) > len(right_heap)+1:
+                heapq.heappush(right_heap, -heapq.heappop(left_heap))
             if len(right_heap) > len(left_heap):
-                heapq.heappush(left_heap, -1 * heapq.heappop(right_heap))
+                heapq.heappush(left_heap, -heapq.heappop(right_heap))
         if len(left_heap) > len(right_heap):
-            return -1 * heapq.heappop(left_heap)
+            return -heapq.heappop(left_heap)
         else:
-            return (-1 * heapq.heappop(left_heap) + (heapq.heappop(right_heap))) / 2
+            return (-heapq.heappop(left_heap) + (heapq.heappop(right_heap))) / 2
 
 
 @dataclass
