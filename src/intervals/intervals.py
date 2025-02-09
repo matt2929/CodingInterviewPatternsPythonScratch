@@ -45,3 +45,4 @@ class INTERVALS:
             else:
                 right_pointer += 1
         return running_overlaps
+
