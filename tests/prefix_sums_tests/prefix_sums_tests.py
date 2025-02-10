@@ -40,3 +40,23 @@ class PREFIX_SUMSTests(unittest.TestCase):
     def test_sum_between_ranges(self, range, sum_list, expected):
         prefix_sums = PREFIX_SUMS()
         assert prefix_sums.sum_between_ranges(range, sum_list) == expected
+
+    @parameterized.expand([
+        ([1, 2, -1, 1, 2], 3, 3),
+        ([], 3, 0),
+        ([1, 2, 3], 7, 0),
+        ([5], 5, 1),
+        ([5], 3, 0),
+        ([1, -1, 1, -1], 0, 4),
+        ([-1, -2, -3, -4], -3, 2),
+        ([1, 2, 3, 4], 5, 1),  # Fixed expected output from 2 to 1
+        ([1, 2, -1, 2, 1, 2], 3, 4),
+        ([1, 1, 1, 1, 1], 2, 4),
+        ([1, 2, 3], 6, 1),
+        ([1000, 1000, 1000, 1000], 2000, 3),
+        ([1, 2, 3, 4], 1000, 0),
+    ])
+    def test_k_sum_sub_arrays(self, sum_list, k, expected):
+        prefix_sums = PREFIX_SUMS()
+
+        assert len(prefix_sums.k_sum_sub_arrays(k=k, nums=sum_list)) == expected
