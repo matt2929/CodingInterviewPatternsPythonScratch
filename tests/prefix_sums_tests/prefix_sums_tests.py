@@ -59,4 +59,4 @@ class PREFIX_SUMSTests(unittest.TestCase):
     def test_k_sum_sub_arrays(self, sum_list, k, expected):
         prefix_sums = PREFIX_SUMS()
 
-        assert len(prefix_sums.k_sum_sub_arrays(k=k, nums=sum_list)) == expected
+        assert prefix_sums.k_sum_sub_arrays(k=k, nums=sum_list) == expected

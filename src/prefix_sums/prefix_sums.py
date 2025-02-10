@@ -1,3 +1,4 @@
+from collections import Counter, defaultdict
 from enum import Enum
 from typing import List, Tuple
 
@@ -36,18 +37,15 @@ class PREFIX_SUMS:
         else:
             return sum_prefix[range[1]] - sum_prefix[range[0] - 1]
 
-    def k_sum_sub_arrays(self, nums: List[int], k: int) -> List[Tuple[int, int]]:
+    def k_sum_sub_arrays(self, nums: List[int], k: int) -> int:
         # find the numer of sub-arrays in an integer array that sum to K
-        sum_prefix = self.__operator_to_prefix_operator__(nums, OPERATOR.sum)
-
-        matches = []
-        for i in range(len(nums)):
-            for j in range(i, len(nums)):
-                print(f"\n i: {i} j: {j} {sum_prefix} {nums}")
-                if i == 0:
-                    temp_sum = sum_prefix[j]
-                else:
-                    temp_sum = sum_prefix[j] - sum_prefix[i - 1]
-                if temp_sum == k:
-                    matches.append((i, j))
+        sum_prefix_freq = defaultdict(int)
+        sum_prefix_freq[0]+=1
+        total = 0
+        matches = 0
+        for i in nums:
+            total += i
+            diff = total-k
+            matches += sum_prefix_freq.get(diff, 0)
+            sum_prefix_freq[total] += 1
         return matches
