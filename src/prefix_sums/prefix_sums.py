@@ -40,12 +40,24 @@ class PREFIX_SUMS:
     def k_sum_sub_arrays(self, nums: List[int], k: int) -> int:
         # find the numer of sub-arrays in an integer array that sum to K
         sum_prefix_freq = defaultdict(int)
-        sum_prefix_freq[0]+=1
+        sum_prefix_freq[0] += 1
         total = 0
         matches = 0
         for i in nums:
             total += i
-            diff = total-k
+            diff = total - k
             matches += sum_prefix_freq.get(diff, 0)
             sum_prefix_freq[total] += 1
         return matches
+
+    def product_array_without_current_element(self, nums: List[int]):
+        if len(nums) <= 1:
+            return nums
+        output = [1]
+        for i in range(1, len(nums)):
+            output.append(output[-1] * nums[i - 1])
+        right_product = 1
+        for i in range(len(output) - 1, -1, -1):
+            output[i] *= right_product
+            right_product *= nums[i]
+        return output

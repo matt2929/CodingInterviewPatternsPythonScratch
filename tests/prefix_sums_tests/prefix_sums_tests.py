@@ -60,3 +60,11 @@ class PREFIX_SUMSTests(unittest.TestCase):
         prefix_sums = PREFIX_SUMS()
 
         assert prefix_sums.k_sum_sub_arrays(k=k, nums=sum_list) == expected
+
+    @parameterized.expand([
+        ([2, 3, 1, 4, 5], [60, 40, 120, 30, 24]),
+    ])
+    def test_product_array_without_current_element(self, sum_list, expected):
+        prefix_sums = PREFIX_SUMS()
+
+        assert prefix_sums.product_array_without_current_element(nums=sum_list) == expected
