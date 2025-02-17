@@ -83,6 +83,42 @@ class TREESTests(unittest.TestCase):
         trees7.left = trees14
         return trees1
 
+    def __test_tree_e__(self) -> 'TreeNode':
+        trees1 = TreeNode(1)
+        trees2 = TreeNode(2)
+        trees5 = TreeNode(5)
+        trees6 = TreeNode(6)
+        trees7 = TreeNode(7)
+        trees7b = TreeNode(7)
+        trees9 = TreeNode(9)
+        trees5.left = trees2
+        trees5.right = trees7
+        trees2.left = trees1
+        trees2.right = trees6
+        trees7.left = trees7b
+        trees7.right = trees9
+        return trees5
+
+    def __test_tree_f__(self) -> 'TreeNode':
+        trees1 = TreeNode(1)
+        trees2 = TreeNode(2)
+        trees3 = TreeNode(3)
+        trees4 = TreeNode(4)
+        trees5 = TreeNode(5)
+        trees6 = TreeNode(6)
+        trees7 = TreeNode(7)
+        trees8 = TreeNode(8)
+        trees9 = TreeNode(9)
+        trees1.left = trees2
+        trees1.right = trees3
+        trees2.left = trees4
+        trees2.right = trees5
+        trees3.left = trees6
+        trees3.right = trees7
+        trees6.left = trees8
+        trees6.right = trees9
+        return trees1
+
     def test_trees(self):
         output = self.__test_tree_a__().pre_order_traversal()
         assert output == [1, 2, 4, 5, 3, 6, 7]
@@ -98,6 +134,10 @@ class TREESTests(unittest.TestCase):
         assert self.__test_tree_b__().is_tree_balanced_recursive() == False
         assert [i.val for i in self.__test_tree_c__().find_right_most_level()] == [1, 3, 6, 11]
         assert self.__test_tree_d__().determine_widest_binary_tree_level() == 7
+        assert self.__test_tree_e__().is_valid_binary_search_tree() == False
+        assert self.__test_tree_f__().lowest_common_ancestor(8, 7).val == 3
+
+
     @parameterized.expand([
         # Original test case (corrected after verification)
         (1, True),

@@ -189,3 +189,32 @@ class TreeNode:
                     queue.append((node.left, index_depth * 2))
                     queue.append((node.right, (index_depth * 2) + 1))
         return max_spread
+
+    def is_valid_binary_search_tree(self) -> bool:
+        queue = deque([(self, None, None)])
+        while queue:
+            node, lower, upper = queue.popleft()
+            if (lower and lower >= node.val) or (upper and node.val >= upper):
+                return False
+            if node.left:
+                queue.append((node.left, lower, node.val))
+            if node.right:
+                queue.append((node.right, node.val, upper))
+        return True
+
+    def lowest_common_ancestor(self, target1: int, target2: int) -> 'TreeNode':
+        return self.__lowest_common_ancestor__(self, target1, target2)
+
+    def __lowest_common_ancestor__(self, node: 'TreeNode', target1: int, target2: int) -> 'TreeNode':
+        if not node:
+            return None
+
+        left_hunt = self.__lowest_common_ancestor__(node.left, target1, target2)
+        right_hunt = self.__lowest_common_ancestor__(node.right, target1, target2)
+        if left_hunt and right_hunt:
+            return node
+        if node.val == target1:
+            return node
+        if node.val == target2:
+            return node
+        return left_hunt if left_hunt else right_hunt
