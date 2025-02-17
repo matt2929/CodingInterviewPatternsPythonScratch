@@ -1,5 +1,4 @@
 import heapq
-from collections import deque
 from dataclasses import dataclass
 from typing import Tuple, List
 

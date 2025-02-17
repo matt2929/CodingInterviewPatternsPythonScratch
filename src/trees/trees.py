@@ -157,3 +157,35 @@ class TreeNode:
         if abs(left - right) > 1:
             return -1
         return max(left, right) + 1
+
+    def find_right_most_level(self) -> List['TreeNode']:
+        queue = deque([(self)])
+        output = []
+        while queue:
+            size = len(queue)
+            for i in range(size):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                if i == size - 1:
+                    output.append(node)
+        return output
+
+    def determine_widest_binary_tree_level(self) -> int:
+        queue = deque([(self, 0)])
+        max_spread = 0
+        while queue:
+            depth = len(queue)
+            sub_min = None
+            for i in range(depth):
+                node, index_depth = queue.popleft()
+                if node:
+                    if sub_min is None:
+                        sub_min = index_depth
+                    sub_max = index_depth
+                    max_spread = max((sub_max - sub_min) + 1, max_spread)
+                    queue.append((node.left, index_depth * 2))
+                    queue.append((node.right, (index_depth * 2) + 1))
+        return max_spread
