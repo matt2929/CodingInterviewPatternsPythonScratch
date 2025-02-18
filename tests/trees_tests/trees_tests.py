@@ -119,6 +119,31 @@ class TREESTests(unittest.TestCase):
         trees6.right = trees9
         return trees1
 
+    def __test_tree_g__(self) -> 'TreeNode':
+        trees5 = TreeNode(5)
+        treesN10 = TreeNode(-10)
+        trees1 = TreeNode(1)
+        treesN7 = TreeNode(-7)
+        trees11 = TreeNode(11)
+        treesN1 = TreeNode(-1)
+        trees8 = TreeNode(8)
+        trees9 = TreeNode(9)
+        trees7 = TreeNode(7)
+        trees6 = TreeNode(6)
+        treesN3 = TreeNode(-3)
+        trees5.left = treesN10
+        treesN10.left = trees1
+        trees1.left = trees11
+        treesN10.right = treesN7
+        treesN7.left = treesN1
+        trees5.right = trees8
+        trees8.left = trees9
+        trees8.right = trees7
+        trees7.left = trees6
+        trees7.right = treesN3
+
+        return trees5
+
     def test_trees(self):
         output = self.__test_tree_a__().pre_order_traversal()
         assert output == [1, 2, 4, 5, 3, 6, 7]
@@ -136,8 +161,7 @@ class TREESTests(unittest.TestCase):
         assert self.__test_tree_d__().determine_widest_binary_tree_level() == 7
         assert self.__test_tree_e__().is_valid_binary_search_tree() == False
         assert self.__test_tree_f__().lowest_common_ancestor(8, 7).val == 3
-
-
+        assert self.__test_tree_g__().maximum_sum_of_a_continuous_path() == 30
     @parameterized.expand([
         # Original test case (corrected after verification)
         (1, True),

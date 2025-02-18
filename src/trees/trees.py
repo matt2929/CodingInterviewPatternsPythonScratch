@@ -6,12 +6,13 @@ from typing import List, Optional
 class TREES:
     ...
 
-
+best_path_dict = {}
 @dataclasses.dataclass
 class TreeNode:
     val: int
     left: 'TreeNode' = None
     right: 'TreeNode' = None
+    lca = None
 
     def pre_order_traversal(self):
         output = []
@@ -208,13 +209,58 @@ class TreeNode:
     def __lowest_common_ancestor__(self, node: 'TreeNode', target1: int, target2: int) -> 'TreeNode':
         if not node:
             return None
-
+        if node.val == target1 or node.val == target2:
+            return node
         left_hunt = self.__lowest_common_ancestor__(node.left, target1, target2)
         right_hunt = self.__lowest_common_ancestor__(node.right, target1, target2)
         if left_hunt and right_hunt:
             return node
-        if node.val == target1:
-            return node
-        if node.val == target2:
-            return node
         return left_hunt if left_hunt else right_hunt
+
+    def maximum_sum_of_a_continuous_path(self):
+        queue = deque([self])
+        max_path = None
+        while queue:
+            node = queue.popleft()
+            best_path = self.best_path_from_root(node)
+            if not max_path:
+                max_path = best_path
+            max_path = max(best_path, max_path)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return max_path
+
+    def best_path_from_root(self, node: 'TreeNode'):
+        left = self.best_path_sum(node.left)
+        right = self.best_path_sum(node.right)
+        sum = node.val
+        if left > 0:
+            sum += left
+        if right > 0:
+            sum += right
+        return sum
+
+
+
+    def best_path_sum(self, node: 'TreeNode'):
+        global best_path_dict
+
+        if not node:
+            return 0
+        if node.left:
+            left = best_path_dict.get(node.left.val, self.best_path_sum(node.left))
+            best_path_dict[node.left.val] = left
+        else:
+            left = 0
+        if node.right:
+            right = best_path_dict.get(node.right.val, self.best_path_sum(node.right))
+            best_path_dict[node.right.val] = right
+        else:
+            right = 0
+        if left < 0 and right < 0:
+            return node.val
+        new_sum = max(left, right) + node.val
+        print(f"{node.val} - {new_sum}")
+        return new_sum
